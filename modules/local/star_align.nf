@@ -49,12 +49,13 @@ process STAR_ALIGN {
     // default values max percentile for UMI count 0.99 and max to min ratio for UMI count 10 taken from STARsolo usage
     def cell_filter = meta.expected_cells ? "--soloCellFilter CellRanger2.2 $meta.expected_cells 0.99 10" : ''
 
-    // separate forward from reverse pairs
-    def (forward, reverse) = reads.collate(2).transpose()
+    def reads1 = [], reads2 = []
+    meta.single_end ? [reads].flatten().each{reads1 << it} : reads.eachWithIndex{ v, ix -> ( ix & 1 ? reads2 : reads1) << v }
+
     """
     STAR \\
         --genomeDir $index \\
-        --readFilesIn ${reverse.join( "," )} ${forward.join( "," )} \\
+        --readFilesIn ${reads2.join(",")} ${reads1.join(",")} \\
         --runThreadN $task.cpus \\
         --outFileNamePrefix $prefix. \\
         --soloCBwhitelist <(gzip -cdf $whitelist) \\
