@@ -302,7 +302,7 @@ workflow SCRNASEQ {
     //
     ch_emptydrops = Channel.empty()
     H5AD_CONVERSION (
-        MTX_TO_H5AD.out.h5ad,
+        MTX_TO_H5AD.out.h5ad.collect(),
         ch_input
     )
     ch_versions = ch_versions.mix(H5AD_CONVERSION.out.ch_versions)
