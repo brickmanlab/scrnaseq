@@ -1,6 +1,6 @@
 /* --    IMPORT LOCAL MODULES/SUBWORKFLOWS     -- */
 include { CONCAT_H5AD           } from '../../modules/local/concat_h5ad.nf'
-include { ANNDATAR_CONVERT      } from '../../modules/local/anndatar_convert'
+// include { ANNDATAR_CONVERT      } from '../../modules/local/anndatar_convert'
 
 workflow H5AD_CONVERSION {
 
@@ -36,10 +36,10 @@ workflow H5AD_CONVERSION {
         //
         // MODULE: Convert to Rds with AnndataR package
         //
-        ANNDATAR_CONVERT (
-            ch_h5ads.mix( ch_h5ad_concat )
-        )
-        ch_versions = ch_versions.mix(ANNDATAR_CONVERT.out.versions.first())
+        // ANNDATAR_CONVERT (
+        //     ch_h5ads.mix( ch_h5ad_concat )
+        // )
+        // ch_versions = ch_versions.mix(ANNDATAR_CONVERT.out.versions.first())
 
     emit:
     ch_versions
