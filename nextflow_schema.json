@@ -96,6 +96,10 @@
                     "type": "boolean",
                     "deprecated": true,
                     "errorMessage": "Parameter has been deprecated in favour of --skip_cellbender to properly match name of workflow."
+                },
+                "skip_anndatar": {
+                    "type": "boolean",
+                    "description": "Skip converting count matrix to R"
                 }
             }
         },
